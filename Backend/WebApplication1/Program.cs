@@ -1,5 +1,11 @@
-using Domain.Data;
+using Application.Interfaces;
+using Application.Mapping;
+using Application.Services;
+using Domain.Repositories;
+using Infrastructure.Data;
+using Infrastructure.Repositories;
 using Microsoft.EntityFrameworkCore;
+
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -10,12 +16,19 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-//add dbContext
+//ADD MANAGERS
+builder.Services.AddTransient<IUserManager, UserManager>();
+
+//ADD REPOSITORIES
+builder.Services.AddScoped(typeof(IRepositoryAsync<>), typeof(RepositoryAsync<>));//genérico en tiempo de compilación
+builder.Services.AddScoped<IUserRepository, UserRepository>();
+
+//ADD DBCONTEXT
 var connectionString = builder.Configuration.GetConnectionString("conexionDB");
 builder.Services.AddDbContext<AppDbContext>(options =>
     options.UseSqlServer(connectionString));
 
-//add cors police
+//ADD CORS POLICY
 builder.Services.AddCors(options =>
 {
     options.AddPolicy("AllowSpecificOrigin",
@@ -28,11 +41,10 @@ builder.Services.AddCors(options =>
         });
 });
 
+//AGREGO PERFIL AUTOMAPPER 
+builder.Services.AddAutoMapper(x => x.AddProfile(new AutoMapping()));
+
 var app = builder.Build();
-
-
-
-
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
