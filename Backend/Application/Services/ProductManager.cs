@@ -51,5 +51,39 @@ namespace Application.Services
             }
             return result;
         }
+
+        public async Task<ResultOperation<PaginateResultDTO>> GetAll(string? category, int pageNumber, int pageSize)
+        {
+            var result = new ResultOperation<PaginateResultDTO>();
+            
+            var products = await _productRepository.GetWithFilters(category, pageNumber, pageSize);
+
+            if(products == null)
+            {
+                result.Data = new PaginateResultDTO();
+                return result;
+            }
+            result.Data = _mapper.Map<PaginateResultDTO>(products);
+            result.IsSuccess = true;
+            return result;
+        }
+
+        public async Task<ResultOperation<ProductDTO>> GetById(int id)
+        {
+            var result = new ResultOperation<ProductDTO>();
+
+            var product = await _productRepository.GetByID(id);
+            
+            if(product == null)
+            {
+                result.Message = "Product not found";
+                return result;
+            }
+
+            result.IsSuccess = true;
+            result.Data = _mapper.Map<ProductDTO>(product);
+            return result;
+        }
+
     }
 }

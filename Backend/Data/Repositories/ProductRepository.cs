@@ -1,6 +1,7 @@
 ﻿using Domain.Entities;
 using Domain.Repositories;
 using Infrastructure.Data;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -28,6 +29,26 @@ namespace Infrastructure.Repositories
             catch{
                 return false;
             }
+        }
+
+        public async Task<PaginateResultEntity?> GetWithFilters(string? category, int pageNumber, int pageSize)
+        {
+            var query = _context.Productos.AsQueryable();
+            if (!string.IsNullOrEmpty(category))
+            {
+                query = query.Where(p => p.Category == category);
+            }
+            var totalItems = await query.CountAsync();
+            var products = await query.Skip((pageNumber - 1) * pageSize).Take(pageSize).ToListAsync();
+            var paginatedResult = new PaginateResultEntity
+            {
+                TotalItems = totalItems,
+                PageNumber = pageNumber,
+                PageSize = pageSize,
+                Products = products
+            };
+
+            return paginatedResult;
         }
     }
 }

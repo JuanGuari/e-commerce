@@ -13,6 +13,8 @@ namespace Application.Mapping
                 .ForMember(dest => dest.PasswordHash, opt => opt.MapFrom(src => HashPassword(src.Password)));
             CreateMap<OrderDTO, OrderEntity>().ReverseMap();
             CreateMap<OrderProductDTO, OrderProductEntity>().ReverseMap();
+            CreateMap<PaginateResultDTO, PaginateResultEntity>().ReverseMap();
+            CreateMap<ProductDTO, ProductEntity>().ReverseMap();
         }
         private string HashPassword(string password)
         {
