@@ -4,12 +4,12 @@ using Application.Services;
 using Domain.Repositories;
 using Infrastructure.Data;
 using Infrastructure.Repositories;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
-
+using Microsoft.IdentityModel.Tokens;
+using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
-
-// Add services to the container.
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
@@ -18,6 +18,7 @@ builder.Services.AddSwaggerGen();
 
 //ADD MANAGERS
 builder.Services.AddTransient<IUserManager, UserManager>();
+builder.Services.AddScoped<IAuthManager, AuthManager>();
 
 //ADD REPOSITORIES
 builder.Services.AddScoped(typeof(IRepositoryAsync<>), typeof(RepositoryAsync<>));//genérico en tiempo de compilación
@@ -43,6 +44,22 @@ builder.Services.AddCors(options =>
 
 //AGREGO PERFIL AUTOMAPPER 
 builder.Services.AddAutoMapper(x => x.AddProfile(new AutoMapping()));
+
+// ADD JWT CONFIGURATION
+builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+    .AddJwtBearer(options =>
+    {
+        options.TokenValidationParameters = new TokenValidationParameters
+        {
+            ValidateIssuer = false,
+            ValidateAudience = false,
+            ValidateIssuerSigningKey = true,
+            IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(
+               Environment.GetEnvironmentVariable("JWT_KEY") ?? builder.Configuration["Jwt:Key"])),
+            ValidateLifetime = true,
+            ClockSkew = TimeSpan.Zero
+        };
+    });
 
 var app = builder.Build();
 
