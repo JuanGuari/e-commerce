@@ -1,8 +1,10 @@
 using Application.Interfaces;
 using Application.Mapping;
 using Application.Services;
+using Domain.ExternalServices;
 using Domain.Repositories;
 using Infrastructure.Data;
+using Infrastructure.ExternalServices;
 using Infrastructure.Repositories;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
@@ -19,10 +21,15 @@ builder.Services.AddSwaggerGen();
 //ADD MANAGERS
 builder.Services.AddTransient<IUserManager, UserManager>();
 builder.Services.AddScoped<IAuthManager, AuthManager>();
+builder.Services.AddScoped<IProductManager, ProductManager>();
 
 //ADD REPOSITORIES
 builder.Services.AddScoped(typeof(IRepositoryAsync<>), typeof(RepositoryAsync<>));//genérico en tiempo de compilación
 builder.Services.AddScoped<IUserRepository, UserRepository>();
+builder.Services.AddScoped<IProductRepository, ProductRepository>();
+
+//ADD EXTERNAL SERVICES
+builder.Services.AddHttpClient<IMercadoLibreService, MercadoLibreService>();
 
 //ADD DBCONTEXT
 var connectionString = builder.Configuration.GetConnectionString("conexionDB");

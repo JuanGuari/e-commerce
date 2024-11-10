@@ -9,7 +9,7 @@ namespace WebApp.Controllers.v1
 {
     [Route("api/v1/[controller]/[action]")]
     [ApiController]
-    public class UserController : Controller
+    public class UserController : ControllerBase
     {
         public readonly IUserManager _userManager;
 
