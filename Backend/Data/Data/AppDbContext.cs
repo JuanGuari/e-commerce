@@ -36,6 +36,11 @@ namespace Infrastructure.Data
                 .HasOne(op => op.Product)
                 .WithMany(p => p.OrderProducts) 
                 .HasForeignKey(op => op.ProductId);
+
+            modelBuilder.Entity<OrderEntity>()
+                .HasOne(o => o.UserEntity).WithMany(u => u.Orders).HasForeignKey(o => o.UserId);
+
+            modelBuilder.Entity<OrderEntity>().ToTable("Orders", tb => tb.HasTrigger("trg_ChangeStatus"));
         }
 
     }

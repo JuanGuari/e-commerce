@@ -22,11 +22,14 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddTransient<IUserManager, UserManager>();
 builder.Services.AddScoped<IAuthManager, AuthManager>();
 builder.Services.AddScoped<IProductManager, ProductManager>();
+builder.Services.AddScoped<ICartManager, CartManager>();
 
 //ADD REPOSITORIES
 builder.Services.AddScoped(typeof(IRepositoryAsync<>), typeof(RepositoryAsync<>));//genérico en tiempo de compilación
 builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddScoped<IProductRepository, ProductRepository>();
+builder.Services.AddScoped<IOrderRepository, OrderRepository>();
+builder.Services.AddScoped<IOrderProductRepository, OrderProductRepository>();
 
 //ADD EXTERNAL SERVICES
 builder.Services.AddHttpClient<IMercadoLibreService, MercadoLibreService>();

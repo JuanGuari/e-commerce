@@ -11,6 +11,8 @@ namespace Application.Mapping
             CreateMap<UserEntity, UserDTO>().ReverseMap(); 
             CreateMap<UserCreateDTO, UserEntity>()
                 .ForMember(dest => dest.PasswordHash, opt => opt.MapFrom(src => HashPassword(src.Password)));
+            CreateMap<OrderDTO, OrderEntity>().ReverseMap();
+            CreateMap<OrderProductDTO, OrderProductEntity>().ReverseMap();
         }
         private string HashPassword(string password)
         {
