@@ -1,0 +1,15 @@
+<header class="d-flex justify-content-between align-items-center p-3 border-bottom">
+    <div class="d-flex align-items-center">
+        <img src="assets/images/logo.png" alt="Logo" class="bolso-img me-3">
+    </div>
+    <div class="header-center text-danger bold fs-5">
+        Tienda
+    </div>
+    <div class="d-flex align-items-center">
+        <i class="theme-icon fs-5 icon-color me-4" [ngClass]="currentTheme == 'dark' ? 'bi bi-brightness-high' : 'bi bi-moon'"
+            (click)="toggleTheme()"></i>
+        <i class="bi bi-cart-fill icon-color fs-2 me-4"></i>
+        <button class="btn btn-outline-danger me-3">Login</button>
+        <button class="btn btn-danger">Registrarse</button>
+    </div>
+</header>
