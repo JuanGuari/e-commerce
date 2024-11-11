@@ -85,5 +85,22 @@ namespace Application.Services
             return result;
         }
 
+        public async Task<ResultOperation<List<string>>> GetCategories()
+        {
+            var result = new ResultOperation<List<string>>();
+
+            var categories = await _productRepository.GetCategories();
+
+            if (categories == null)
+            {
+                result.Message = "Categories not found";
+                return result;
+            }
+
+            result.IsSuccess = true;
+            result.Data = categories;
+            return result;
+        }
+
     }
 }

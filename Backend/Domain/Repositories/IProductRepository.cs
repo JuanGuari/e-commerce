@@ -11,5 +11,6 @@ namespace Domain.Repositories
     {
         public Task<bool> AddProducts(IEnumerable<ProductEntity> products);
         public Task<PaginateResultEntity?> GetWithFilters(string? category, int pageNumber, int pageSize);
+        public Task<List<string>?> GetCategories();
     }
 }

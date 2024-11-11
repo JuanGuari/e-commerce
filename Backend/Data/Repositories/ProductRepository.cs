@@ -34,7 +34,7 @@ namespace Infrastructure.Repositories
         public async Task<PaginateResultEntity?> GetWithFilters(string? category, int pageNumber, int pageSize)
         {
             var query = _context.Productos.AsQueryable();
-            if (!string.IsNullOrEmpty(category))
+            if (!string.IsNullOrEmpty(category) && category != "")
             {
                 query = query.Where(p => p.Category == category);
             }
@@ -50,5 +50,16 @@ namespace Infrastructure.Repositories
 
             return paginatedResult;
         }
+
+        public async Task<List<string>?> GetCategories()
+        {
+            var categoriasUnicas = _context.Productos
+                                 .GroupBy(p => p.Category) 
+                                 .Select(g => g.Key)
+                                 .ToList();
+
+            return categoriasUnicas;
+        }
+
     }
 }

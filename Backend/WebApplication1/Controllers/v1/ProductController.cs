@@ -48,5 +48,18 @@ namespace WebApp.Controllers.v1
         }
 
 
+        [HttpGet]
+        public async Task<IActionResult> GetCategories()
+        {
+            var result = await _productManager.GetCategories();
+            if (result.IsSuccess)
+            {
+                return Ok(result.Data);
+            }
+
+            return NotFound(result.Message);
+        }
+
+
     }
 }
