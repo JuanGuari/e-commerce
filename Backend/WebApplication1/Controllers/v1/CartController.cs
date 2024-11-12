@@ -1,10 +1,12 @@
 ﻿using Application.Interfaces;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace WebApp.Controllers.v1
 {
     [Route("api/v1/[controller]/[action]")]
     [ApiController]
+    [Authorize]
     public class CartController : ControllerBase
     {
         public readonly ICartManager _cartManager;
@@ -19,7 +21,7 @@ namespace WebApp.Controllers.v1
         {
             var result = await _cartManager.AddToCartAsync(userId, productId, quantity);
             if (result.IsSuccess)
-                return Ok(result.Message);
+                return Ok(result);
 
             return BadRequest(result.Message);
         }
@@ -42,9 +44,9 @@ namespace WebApp.Controllers.v1
         {
             var result = await _cartManager.CheckoutAsync(userId);
             if (result.IsSuccess)
-                return Ok("Order finished.");
+                return Ok(result);
 
-            return BadRequest("\r\nThere was a problem completing the order.");
+            return BadRequest("There was a problem completing the order.");
         }
 
     }

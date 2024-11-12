@@ -33,11 +33,15 @@ namespace Application.Services
 
             if (cart == null)
             {
+                var random = new Random();
+                int deliveryDays = random.Next(3, 16);
+
                 cart = new OrderEntity
                 {
                     UserId = userId,
                     Status = "En Proceso",
-                    OrderDate = DateTime.Now
+                    OrderDate = DateTime.Now,
+                    EstimatedDeliveryDate = DateTime.Now.AddDays(deliveryDays)
                 };
                 await _orderRepository.Insert(cart);
                 cart = await _orderRepository.GetCartAsync(userId); 
