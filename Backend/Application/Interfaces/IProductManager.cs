@@ -13,7 +13,7 @@ namespace Application.Interfaces
     public interface IProductManager
     {
         Task<ResultOperation<bool>> AddProductsAsync();
-        Task<ResultOperation<PaginateResultDTO>> GetAll(string? category, int pageNumber, int pageSize);
+        Task<ResultOperation<PaginateResultDTO>> GetAll(string? category, int pageNumber, int pageSize,string searchTerm);
         Task<ResultOperation<ProductDTO>> GetById(int id);
         Task<ResultOperation<List<string>>> GetCategories();
     }

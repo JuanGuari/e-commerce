@@ -52,11 +52,11 @@ namespace Application.Services
             return result;
         }
 
-        public async Task<ResultOperation<PaginateResultDTO>> GetAll(string? category, int pageNumber, int pageSize)
+        public async Task<ResultOperation<PaginateResultDTO>> GetAll(string? category, int pageNumber, int pageSize, string searchTerm)
         {
             var result = new ResultOperation<PaginateResultDTO>();
             
-            var products = await _productRepository.GetWithFilters(category, pageNumber, pageSize);
+            var products = await _productRepository.GetWithFilters(category, pageNumber, pageSize, searchTerm);
 
             if(products == null)
             {

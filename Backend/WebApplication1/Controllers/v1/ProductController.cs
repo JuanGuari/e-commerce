@@ -27,9 +27,10 @@ namespace WebApp.Controllers.v1
             return NotFound(result.Message);
         }
 
-        [HttpGet] public async Task<IActionResult> GetAll([FromQuery] string? category, [FromQuery] int pageNumber = 1, [FromQuery] int pageSize = 10)
+        [HttpGet] public async Task<IActionResult> GetAll([FromQuery] string? category, 
+            [FromQuery] int pageNumber = 1, [FromQuery] int pageSize = 10, [FromQuery] string searchTerm = "")
         { 
-            var result = await _productManager.GetAll(category, pageNumber, pageSize);
+            var result = await _productManager.GetAll(category, pageNumber, pageSize, searchTerm);
             return Ok(result.Data);
             
         }

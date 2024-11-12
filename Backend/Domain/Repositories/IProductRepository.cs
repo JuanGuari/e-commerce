@@ -10,7 +10,7 @@ namespace Domain.Repositories
     public interface IProductRepository : IRepositoryAsync<ProductEntity>
     {
         public Task<bool> AddProducts(IEnumerable<ProductEntity> products);
-        public Task<PaginateResultEntity?> GetWithFilters(string? category, int pageNumber, int pageSize);
+        public Task<PaginateResultEntity?> GetWithFilters(string? category, int pageNumber, int pageSize, string searchTerm);
         public Task<List<string>?> GetCategories();
     }
 }

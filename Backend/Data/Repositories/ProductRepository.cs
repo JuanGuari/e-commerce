@@ -31,15 +31,27 @@ namespace Infrastructure.Repositories
             }
         }
 
-        public async Task<PaginateResultEntity?> GetWithFilters(string? category, int pageNumber, int pageSize)
-        {
+        public async Task<PaginateResultEntity?> GetWithFilters(string? category, int pageNumber, int pageSize, string searchTerm)
+        {           
             var query = _context.Productos.AsQueryable();
+            
             if (!string.IsNullOrEmpty(category) && category != "")
             {
                 query = query.Where(p => p.Category == category);
             }
+
+            if (!string.IsNullOrEmpty(searchTerm) && searchTerm != "")
+            {
+                query = query.Where(p => p.Name.Contains(searchTerm) || p.Description.Contains(searchTerm));
+            }
+
             var totalItems = await query.CountAsync();
-            var products = await query.Skip((pageNumber - 1) * pageSize).Take(pageSize).ToListAsync();
+
+            var products = await query
+                .Skip((pageNumber - 1) * pageSize)
+                .Take(pageSize)
+                .ToListAsync();
+
             var paginatedResult = new PaginateResultEntity
             {
                 TotalItems = totalItems,
@@ -50,6 +62,7 @@ namespace Infrastructure.Repositories
 
             return paginatedResult;
         }
+
 
         public async Task<List<string>?> GetCategories()
         {
