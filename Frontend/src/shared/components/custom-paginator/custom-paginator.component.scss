@@ -1,0 +1,11 @@
+.paginator {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+    
+    .btn {
+        color: var(--text-color-primary);
+    }
+}
+

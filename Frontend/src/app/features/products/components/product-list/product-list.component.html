@@ -1,25 +1,38 @@
 <div class="p-5">
+    <!-- BUSCADOR -->
+    <div class="d-flex justify-content-center">
+        <div class="search-bar  mb-4 d-flex w-50">
+            <input type="text" class="form-control" placeholder="Buscar productos..." [(ngModel)]="searchTerm"
+                (input)="onSearch()" />
+            <button class="btn btn-outline-dark ms-2" (click)="resetSearch()">Limpiar</button>
+        </div>
+    </div>
+
     <div class="row">
-        @for (producto of productos; track $index) {
-            <div class="col-md-4">
-                <div class="card text-center">
-                    <img [src]="producto.imageUrl" class="card-img-top" alt="Producto" width="400" height="400">
-                    <div class="card-body">
-                        <h5 class="card-title text-truncate">{{ producto.name }}</h5>
-                        <p class="card-text">{{ producto.price | currency }}</p>
-                        <div class="d-flex justify-content-center gap-2">
-                            <button class="btn btn-danger w-25">
-                                <i class="bi bi-cart"></i> 
-                            </button>
-                            <button class="btn btn-primary w-25">
-                                <i class="bi bi-eye"></i> 
-                            </button>
-                        </div>
+        @for (producto of products; track $index) {
+        <div class="col-md-4">
+            <div class="card text-center">
+                <img [src]="producto.imageUrl" class="card-img-top" alt="Producto" width="400" height="400">
+                <div class="card-body">
+                    <h5 class="card-title text-truncate">{{ producto.name }}</h5>
+                    <p class="card-text">{{ producto.price | currency }}</p>
+                    <div class="d-flex justify-content-center gap-2">
+                        <button class="btn btn-danger w-25">
+                            <i class="bi bi-cart"></i>
+                        </button>
+                        <button class="btn btn-primary w-25">
+                            <i class="bi bi-eye"></i>
+                        </button>
                     </div>
                 </div>
             </div>
-        }        
+        </div>
+        }
     </div>
+    <!-- PAGINADO -->
+    <app-custom-paginator [currentPage]="currentPage" [pageSize]="itemsPerPage" [totalItems]="totalItems"
+        (pageChange)="onPageChanged($event)">
+    </app-custom-paginator>
 </div>
 
 <!-- SPINNER -->

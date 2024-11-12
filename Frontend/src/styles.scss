@@ -153,12 +153,6 @@ app-sidebar {
     margin-right: 10px;
 }
 
-.hamburger-menu {
-    padding: 15px;
-    cursor: pointer;
-    text-align: center;
-}
-
 .p-field {
     margin-bottom: 1rem;
 }
@@ -203,7 +197,7 @@ button[pButton] {
 }
 
 
-li, h1, p, .h3, label, pre {
+li, h1, p, .h3, label, pre, span {
     color: var(--text-color-primary);
 }
 
@@ -211,3 +205,4 @@ li, h1, p, .h3, label, pre {
     color: var(--text-color-primary); 
     cursor: pointer;
 }
+
