@@ -127,7 +127,7 @@ app-sidebar {
     padding: 25px 0;
     background-color: var(--background-color-secondary);
     color: white;
-    z-index: 1000;
+    z-index: 100;
     overflow-y: hidden;
 }
 
@@ -197,7 +197,7 @@ button[pButton] {
 }
 
 
-li, h1, p, .h3, label, pre, span {
+li, h1, p,h2, .h3, h4, label, pre, span {
     color: var(--text-color-primary);
 }
 
