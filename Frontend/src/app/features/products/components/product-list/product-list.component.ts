@@ -1,61 +1,50 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
+import { ProductApiService } from '../../../../core/services/productApi.service';
+import { Product } from '../../../../core/models/product.interface';
+import { ProductsService } from '../../../services/products.service';
+import { Subscription } from 'rxjs';
+import { SpinnerComponent } from '../../../../../shared/components/spinner/spinner.component';
 
 @Component({
   selector: 'app-product-list',
   standalone: true,
-  imports: [],
+  imports: [CommonModule, SpinnerComponent],
   templateUrl: './product-list.component.html',
   styleUrl: './product-list.component.scss'
 })
 export class ProductListComponent {
+  productos: Product[] = [];
+  isLoading = false;
+  productApiService = inject(ProductApiService);
+  productsService = inject(ProductsService);
+  private subscription = new Subscription();
 
-  productos: any[] = [
-    {
-      imagen: 'https://via.placeholder.com/150',
-      nombre: 'Producto 1',
-      precio: 1000
-    },
-    {
-      imagen: 'https://via.placeholder.com/150',
-      nombre: 'Producto 2',
-      precio: 2000
-    },
-    {
-      imagen: 'https://via.placeholder.com/150',
-      nombre: 'Producto 3',
-      precio: 3000
-    },
-    {
-      imagen: 'https://via.placeholder.com/150',
-      nombre: 'Producto 1',
-      precio: 1000
-    },
-    {
-      imagen: 'https://via.placeholder.com/150',
-      nombre: 'Producto 2',
-      precio: 2000
-    },
-    {
-      imagen: 'https://via.placeholder.com/150',
-      nombre: 'Producto 3',
-      precio: 3000
-    },
-    {
-      imagen: 'https://via.placeholder.com/150',
-      nombre: 'Producto 1',
-      precio: 1000
-    },
-    {
-      imagen: 'https://via.placeholder.com/150',
-      nombre: 'Producto 2',
-      precio: 2000
-    },
-    {
-      imagen: 'https://via.placeholder.com/150',
-      nombre: 'Producto 3',
-      precio: 3000
-    },
-  ];
+  ngOnInit() {
+    this.subscription.add(
+      this.productsService.selectedCategory$.subscribe(category => {
+        this.getProducts(category);
+      }));
+  }
+
+  getProducts(category: string) {
+    this.isLoading = true;
+    this.productApiService.getAll(category).subscribe({
+      next: res => {
+        this.productos = res;
+      },
+      error: error => {
+        console.log(error);
+        this.isLoading = false;
+      },
+      complete: () => {
+        this.isLoading = false;
+      }
+    });
+  }
+
+  ngOnDestroy(): void {
+    this.subscription.unsubscribe();
+  }
 
 }

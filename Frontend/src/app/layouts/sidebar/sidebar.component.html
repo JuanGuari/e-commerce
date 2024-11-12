@@ -3,31 +3,14 @@
         <li class="text-danger fw-bold border-bottom" routerLink="/">
             Categorías
         </li>
-        <li routerLink="/">
+        <li [ngClass]="{ 'fw-bold': selectedCategory === '' }" (click)="selectCategory('')">
             Todas
         </li>
-        <li routerLink="/estimates">
-            Categoría B
+        @for (category of categories; track $index) {
+        <li [ngClass]="{ 'fw-bold': selectedCategory === category }" (click)="selectCategory(category)">
+            {{ category }}
         </li>
-
-        <li routerLink="/settings">
-            Categoría C
-        </li>
-
-        <li routerLink="/">
-            Categoría D
-        </li>
-        <li routerLink="/estimates">
-            Categoría E
-        </li>
-
-        <li routerLink="/settings">
-            Categoría F
-        </li>
+        }
     </ul>
 
-
-    <!-- <li style="cursor: pointer;" routerLink="/settings" (click)="logout()">
-        <i class="bi bi-box-arrow-right fs-5" title="Salir"></i>
-    </li> -->
 </div>

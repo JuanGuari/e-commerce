@@ -3,10 +3,10 @@
         @for (producto of productos; track $index) {
             <div class="col-md-4">
                 <div class="card text-center">
-                    <img [src]="producto.imagen" class="card-img-top" alt="Producto">
+                    <img [src]="producto.imageUrl" class="card-img-top" alt="Producto" width="400" height="400">
                     <div class="card-body">
-                        <h5 class="card-title">{{ producto.nombre }}</h5>
-                        <p class="card-text">{{ producto.precio }}</p>
+                        <h5 class="card-title text-truncate">{{ producto.name }}</h5>
+                        <p class="card-text">{{ producto.price | currency }}</p>
                         <div class="d-flex justify-content-center gap-2">
                             <button class="btn btn-danger w-25">
                                 <i class="bi bi-cart"></i> 
@@ -21,3 +21,6 @@
         }        
     </div>
 </div>
+
+<!-- SPINNER -->
+<app-spinner [isLoading]="isLoading" />
