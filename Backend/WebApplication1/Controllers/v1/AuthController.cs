@@ -20,7 +20,7 @@ namespace WebApp.Controllers.v1
             var result = await _authManager.VerifyUser(loginDto);
             if (result.IsSuccess)
             {
-                return Ok(new { token = result.Data });
+                return Ok(result);
             }
             return NotFound(result.Message);
 

@@ -10,6 +10,6 @@ namespace Application.Interfaces
 {
     public interface IAuthManager
     {
-        Task<ResultOperation<string>> VerifyUser(LoginDTO loginDto);
+        Task<ResultOperation<LoginResponseDTO>> VerifyUser(LoginDTO loginDto);
     }
 }

@@ -25,9 +25,9 @@ namespace Application.Services
             _configuration = configuration;
         }
 
-        public async Task<ResultOperation<string>> VerifyUser(LoginDTO loginDto)
+        public async Task<ResultOperation<LoginResponseDTO>> VerifyUser(LoginDTO loginDto)
         {
-            var result = new ResultOperation<string>();
+            var result = new ResultOperation<LoginResponseDTO>();
             var users = await _userRepository.GetAll();
 
             if (users == null) {
@@ -59,8 +59,10 @@ namespace Application.Services
                 return result;
             }
 
+            var loginResponse = _mapper.Map<LoginResponseDTO>(user);           
+            loginResponse.Token = token;
             result.IsSuccess = true;
-            result.Data = token;
+            result.Data = loginResponse;
 
             return result;
         }
