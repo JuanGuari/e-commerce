@@ -13,10 +13,10 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v3  # Para obtener el código del repositorio
         with:
-          fetch-depth: 1
+          fetch-depth: 1  # Este paso obtiene el código, no ejecuta comandos con `run`
 
-      - name: Se recupero correctamente el código del repositorio
-        run: echo "Se recupero correctamente el código del repositorio"
+      - name: Mensaje de éxito en Checkout
+        run: echo "Se recupero correctamente el código del repositorio"  # Este paso solo ejecuta un mensaje con `run`
 
       - name: Set up Git
         run: |
