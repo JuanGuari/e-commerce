@@ -1,0 +1,46 @@
+name: Deploy to Staging
+
+on:
+  push:
+    branches:
+      - develop
+  workflow_dispatch:
+
+jobs:
+  merge-to-staging:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3  # Para obtener el código del repositorio
+        with:
+          fetch-depth: 1
+      
+      - name: Verificar código descargado
+        run: echo "Código descargado correctamente."
+
+      - name: Set up Git
+        run: |
+          git config user.name "GitHub Actions"
+          git config user.email "actions@github.com"
+          echo "Configuración de Git completada"
+
+      - name: Fetch all branches
+        run: |
+          git fetch --all
+          echo "Se han descargado todas las ramas remotas."
+
+      - name: Checkout staging branch
+        run: |
+          git checkout staging
+          echo "Cambio de rama a: staging"
+
+      - name: Merge develop into staging
+        run: |
+          git merge develop --no-ff -m "Merge develop into staging"
+          echo "Merge de develop a staging completada"
+     
+      - name: Push changes to staging
+        run: |
+          git push origin staging
+          echo "Push a la rama staging completado"
