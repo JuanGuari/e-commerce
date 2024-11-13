@@ -1,0 +1,16 @@
+<div class="sidebar">
+    <ul>
+        <li class="text-danger fw-bold border-bottom">
+            Categorías
+        </li>
+        <li [ngClass]="{ 'fw-bold': selectedCategory === '' }" (click)="selectCategory('')">
+            Todas
+        </li>
+        @for (category of categories; track $index) {
+        <li [ngClass]="{ 'fw-bold': selectedCategory === category }" (click)="selectCategory(category)">
+            {{ category }}
+        </li>
+        }
+    </ul>
+
+</div>

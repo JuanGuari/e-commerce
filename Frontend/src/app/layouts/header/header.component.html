@@ -1,0 +1,21 @@
+<header class="d-flex justify-content-between align-items-center p-3 border-bottom">
+    <div class="d-flex align-items-center">
+        <img src="assets/images/logo.png" alt="Logo" class="bolso-img me-3">
+    </div>
+    <div class="header-center text-danger fw-bold fs-5">
+        Tienda @if (isAuthenticated) { - Bienvenido {{username}} }
+    </div>
+    <div class="d-flex align-items-center">
+        <!-- CAMBIAR TEMA -->
+        <i class="theme-icon fs-5 icon-color me-4"
+            [ngClass]="currentTheme == 'dark' ? 'bi bi-brightness-high' : 'bi bi-moon'" (click)="toggleTheme()"></i>
+        <!-- CARRITO -->
+        <i class="bi bi-cart-fill icon-color fs-2 me-4" routerLink="order" (click)="selectRoute()"></i>
+        <button *ngIf="!isAuthenticated" class="btn btn-outline-danger me-3" routerLink="/login">Login</button>
+        <button *ngIf="!isAuthenticated" class="btn btn-danger">Registrarse</button>
+        <button *ngIf="isAuthenticated" class="btn btn-danger" title="Salir" routerLink="/" (click)="logout()"><i
+                class="bi bi-box-arrow-right fs-5" title="Salir"></i> </button>
+    </div>
+</header>
+<!-- SPINNER -->
+<app-spinner [isLoading]="isLoading" />
