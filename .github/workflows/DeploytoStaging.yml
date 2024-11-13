@@ -41,6 +41,8 @@ jobs:
           echo "Merge de origin/develop a staging completada"
 
       - name: Push changes to staging
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          git push https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/JuanGuari/e-commerce.git staging
+          git push https://x-access-token:${GITHUB_TOKEN}@github.com/JuanGuari/e-commerce.git HEAD:staging
           echo "Push a la rama staging completado"
