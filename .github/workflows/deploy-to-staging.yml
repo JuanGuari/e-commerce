@@ -4,7 +4,7 @@ on:
   push:
     branches:
       - develop
-
+  workflow_dispatch: 
 jobs:
   merge-to-staging:
     runs-on: ubuntu-latest
