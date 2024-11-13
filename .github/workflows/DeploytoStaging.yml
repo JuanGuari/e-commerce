@@ -39,8 +39,8 @@ jobs:
         run: |
           git merge origin/develop --no-ff -m "Merge develop into staging"
           echo "Merge de origin/develop a staging completada"
-        
+
       - name: Push changes to staging
         run: |
-          git push origin staging
+          git push https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/JuanGuari/e-commerce.git staging
           echo "Push a la rama staging completado"
