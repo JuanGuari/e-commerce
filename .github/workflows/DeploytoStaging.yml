@@ -4,7 +4,7 @@ on:
   push:
     branches:
       - develop
-  workflow_dispatch:
+  workflow_dispatch:  # Esto habilita la ejecución manual del flujo de trabajo
 
 jobs:
   merge-to-staging:
@@ -15,7 +15,7 @@ jobs:
         uses: actions/checkout@v3  # Para obtener el código del repositorio
         with:
           fetch-depth: 1
-      
+
       - name: Verificar código descargado
         run: echo "Código descargado correctamente."
 
@@ -35,11 +35,11 @@ jobs:
           git checkout staging
           echo "Cambio de rama a: staging"
 
-      - name: Merge develop into staging
+      - name: Merge origin/develop into staging
         run: |
-          git merge develop --no-ff -m "Merge develop into staging"
-          echo "Merge de develop a staging completada"
-     
+          git merge origin/develop --no-ff -m "Merge develop into staging"
+          echo "Merge de origin/develop a staging completada"
+        
       - name: Push changes to staging
         run: |
           git push origin staging
