@@ -1,27 +1,47 @@
-# Frontend
+# E-Commerce Frontend
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 18.2.11.
+Sistema básico de gestión de productos y órdenes para un e-commerce
 
-## Development server
+## Requisitos Previos
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+- Node.js (versión 20.11.1)
+- Angular CLI (versión 18)
 
-## Code scaffolding
+## Instalación
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+- Clonar el repositorio
+  https://github.com/JuanGuari/e-commerce.git
 
-## Build
+- Navegar al directorio del proyecto
+  `cd Frontend'`
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+- Restaurar las dependencias
+  Ejecutar `npm i`
 
-## Running unit tests
+## Estructura del proyecto
+- **/app/auth**: Contiene componentes y servicios de autenticación, incluyendo guards para proteger rutas.
+- **/app/core**: Servicios y componentes reutilizables en toda la aplicación, como interceptores HTTP y modelos compartidos.
+- **/app/features**: Contiene funcionalidades principales, como `products` y `orders`.
+- **/app/shared**: Componentes reutilizables en toda la aplicación.
+- **/app/layouts**: Contiene componentes de layout, como headers, footers, sidebars y otros elementos de diseño que se utilizan en varias páginas o secciones de la aplicación.
+- **/app/pages**: Contiene las páginas principales de la aplicación, como la página de inicio, la página de productos y otras vistas importantes. Cada página suele agrupar componentes específicos para esa vista.
+- **/assets**: Archivos estáticos.
+- **/environments**: Configuración para entornos de desarrollo y producción.
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
 
-## Running end-to-end tests
 
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
+## Configuraciones
 
-## Further help
+Se debe configurar la url de la api en los archivos environments
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+## Ejecutar el proyecto
+```ng serve```
+
+## Contribuciones
+
+Nomenclatura commits: 
+- feat: "mensaje" 
+- fix:"" 
+- improvement:""
+
+#### Actualizar el README a medida que el proyecto evoluciona.
