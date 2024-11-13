@@ -4,7 +4,7 @@ on:
   push:
     branches:
       - develop
-  workflow_dispatch:  # Esto habilita la ejecución manual del flujo de trabajo
+  workflow_dispatch:  # Para habilitar ejecución manual
 
 jobs:
   merge-to-staging:
@@ -12,37 +12,30 @@ jobs:
 
     steps:
       - name: Checkout code
-        uses: actions/checkout@v4  # Para obtener el código del repositorio
+        uses: actions/checkout@v3
         with:
-          fetch-depth: 1
+          persist-credentials: true  # Asegura que el token se conserve para el push
+          fetch-depth: 0  # Asegura que todas las ramas se descarguen
 
-      - name: Verificar código descargado
-        run: echo "Código descargado correctamente."
-
-      - name: Set up Git
+      - name: Configurar usuario Git
         run: |
           git config user.name "GitHub Actions"
           git config user.email "actions@github.com"
-          echo "Configuración de Git completada"
-
-      - name: Fetch all branches
-        run: |
-          git fetch --all
-          echo "Se han descargado todas las ramas remotas."
+          echo "Git configurado"
 
       - name: Checkout staging branch
         run: |
           git checkout staging
           echo "Cambio de rama a: staging"
 
-      - name: Merge origin/develop into staging
+      - name: Merge develop into staging
         run: |
           git merge origin/develop --no-ff -m "Merge develop into staging"
-          echo "Merge de origin/develop a staging completada"
+          echo "Merge de develop a staging completada"
 
       - name: Push changes to staging
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          git push https://x-access-token:${GITHUB_TOKEN}@github.com/JuanGuari/e-commerce.git HEAD:staging
+          git push origin staging
           echo "Push a la rama staging completado"
