@@ -1,0 +1,26 @@
+<!-- product-detail.component.html -->
+<div class="container p-5">
+    <button class="btn btn-outline-dark mb-3" (click)="goBack()"><i class="bi bi-arrow-left"></i></button>
+    @if (product) {
+    <div class="card">
+        <div class="row">
+            <img [src]="product.imageUrl" class="card-img-top w-50" alt="Producto">
+            <img [src]="product.imageUrl" class="card-img-top w-50" alt="Producto">
+        </div>
+        <div class="card-body">
+            <h5 class="card-title">{{ product.name }}</h5>
+            <p class="card-text">{{ product.description }}</p>
+            <p class="card-text">{{ product.price | currency }}</p>
+            @if (isAuthenticated) {
+            <button class="btn btn-danger" (click)="addToCart(product)">
+                <i class="bi bi-cart"></i> Añadir al carrito
+            </button>
+            }
+        </div>
+    </div>
+    }
+</div>
+<!-- TOAST -->
+<app-toast [showToast]="showToast" [message]="toastMessage" [type]="type" />
+<!-- SPINNER -->
+<app-spinner [isLoading]="isLoading" />

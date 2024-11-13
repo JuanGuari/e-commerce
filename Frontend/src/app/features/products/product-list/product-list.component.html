@@ -17,10 +17,14 @@
                     <h5 class="card-title text-truncate">{{ producto.name }}</h5>
                     <p class="card-text">{{ producto.price | currency }}</p>
                     <div class="d-flex justify-content-center gap-2">
-                        <button class="btn btn-danger w-25">
-                            <i class="bi bi-cart"></i>
-                        </button>
-                        <button class="btn btn-primary w-25">
+                        <!-- AGREGAR AL CARRITO -->
+                        @if (isAuthenticated) {
+                            <button class="btn btn-danger w-25" (click)="addToCart(producto)">
+                                <i class="bi bi-cart"></i>
+                            </button>
+                        }                       
+                        <!-- DETALLES -->
+                        <button class="btn btn-primary w-25" [routerLink]="['/product', producto.id]">
                             <i class="bi bi-eye"></i>
                         </button>
                     </div>
@@ -34,6 +38,7 @@
         (pageChange)="onPageChanged($event)">
     </app-custom-paginator>
 </div>
-
+<!-- TOAST -->
+<app-toast [showToast]="showToast" [message]="toastMessage" [type]="type" />
 <!-- SPINNER -->
 <app-spinner [isLoading]="isLoading" />

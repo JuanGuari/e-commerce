@@ -2,7 +2,8 @@ import { Routes } from '@angular/router';
 import { LoginComponent } from './pages/login/login.component';
 import { NotFoundComponent } from './pages/not-found/not-found.component';
 import { MainLayoutComponent } from './layouts/main-layout/main-layout.component';
-import { ProductListComponent } from './features/products/components/product-list/product-list.component';
+import { AuthGuard } from './auth/guards/auth.guard';
+import { ProductListComponent } from './features/products/product-list/product-list.component';
 
 export const routes: Routes = [
     {
@@ -18,10 +19,17 @@ export const routes: Routes = [
                 component: ProductListComponent
             },
             {
-                path: 'products/:id',
-                loadComponent: () => import('./features/products/components/product-detail/product-detail.component').
-                    then(c => c.ProductDetailComponent)
+                path: 'product/:id',
+                loadComponent: () => import('./features/products/product-detail/product-detail.component').
+                    then(c => c.ProductDetailComponent),
+                // canActivate: [AuthGuard] 
             },
+            {
+                path: 'order',
+                loadComponent: () => import('./features/orders/order-view/order-view.component').
+                    then(c => c.OrderViewComponent),
+                canActivate: [AuthGuard] 
+            }
         ]
     },
     {

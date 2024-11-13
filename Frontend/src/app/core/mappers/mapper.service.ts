@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { ProductApi } from '../models/product.api.interface';
+import { ProductApi } from '../models/productResponse.interface';
 import { Product } from '../models/product.interface';
 
 @Injectable({
